@@ -27,7 +27,7 @@ describe('Helpers...', () => {
     cy.wrap(promise).then(ret => console.log(ret))
     cy.get('#buttonCount').then(() => console.log('Encontrei o botão ##002'))
   })
-  it.only('Its...', () => {
+  it('Its...', () => {
     const obj = { nome: 'User', idade: '20' }
     cy.wrap(obj).should('have.a.property', 'nome', 'User')
     cy.wrap(obj).its('nome').should('be.equal', 'User')
@@ -39,5 +39,17 @@ describe('Helpers...', () => {
 
     cy.visit('http://www.wcaquino.me/cypress/componentes.html')
     cy.title().its('length').should('be.equal', 20)
+  })
+  it.only('Invoke', () => {
+    const getValue = () => 1
+    const soma = (a, b) => a + b
+    cy.wrap({ fn: getValue }).invoke('fn').should('be.equal', 1)
+    cy.wrap({ fn: soma }).invoke('fn', 2, 5).should('be.equal', 7)
+
+    cy.visit('http://www.wcaquino.me/cypress/componentes.html')
+    cy.get('h3').invoke('html', '<h3>Teste Fudencia do nordeste</h3>')
+    cy.get('#formNome').invoke('val', 'Texto via invoke')
+    cy.window().invoke('alert', 'Fofura do nordeste')
+    cy.get('#resultado').invoke('html', '<input type="button" value="Fofurex Hack" >')
   })
 })

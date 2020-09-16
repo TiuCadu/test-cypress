@@ -6,8 +6,16 @@ describe('Cypress basic', () => {
     cy.title()
       .should('be.equal', 'Campo de Treinamento')
       .and('contain', 'Treinamento')
+
+    let syncTitle
     cy.title().then((title) => {
-      console.log('Teste Fofura', title)
+      console.log('Teste Fofura ====>', title)
+      cy.get('#formNome').type(title)
+      syncTitle = title
+    })
+
+    cy.get('[data-cy=dataSobrenome]').then($el => {
+      cy.wrap($el).type(syncTitle)
     })
   })
 
