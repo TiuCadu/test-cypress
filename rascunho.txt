@@ -1,3 +1,82 @@
 {
     "defaultCommandTimeout": 1000 - alteração do wait padrão
 }
+
+
+<==== config do vscode =================================>
+{
+    "workbench.colorTheme": "Dracula Soft",
+    "[javascript]": {
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    },
+    "code-runner.clearPreviousOutput": true,
+    "files.autoSave": "off",
+    "git.autofetch": true,
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "workbench.iconTheme": "material-icon-theme",
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "cSpell.language": "pt,en",
+    "editor.renameOnType": true,
+    "cSpell.userWords": [
+        "CPFs",
+        "Fofura",
+        "zerado"
+    ],
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    },
+    "eslint.format.enable": true,
+    "window.zoomLevel": 0,
+    "editor.fontFamily": "Fira Code",
+    "editor.fontLigatures": true,
+    "todo-tree.tree.showScanModeButton": false,
+    "todo-tree.highlights.defaultHighlight": {
+        "icon": "alert",
+        "type": "text",
+        "foreground": "red",
+        "background": "white",
+        "opacity": 50,
+        "iconColour": "white"
+    },
+    "todo-tree.highlights.customHighlight": {
+        "TODO": {
+            "icon": "calendar",
+            "iconColour": "white",
+            "type": "text",
+            "foreground": "white",
+            "background": "gray",
+            "gutterIcon": "true"
+        },
+        "FIXME": {
+            "foreground": "red",
+            "iconColour": "red",
+            "gutterIcon": true
+        },
+        "NOTE": {
+            "foreground": "red",
+            "iconColour": "yellow",
+            "gutterIcon": true,
+            "type": "text",
+            "foreground": "white",
+            "background": "gray"
+        }
+    },
+    "todo-tree.general.tags": [
+        "XXX",
+        "TODO",
+        "HACK",
+        "FIXME",
+        "BUG",
+        "NOTE"
+    ]
+}
+<==== config do vscode =================================>
