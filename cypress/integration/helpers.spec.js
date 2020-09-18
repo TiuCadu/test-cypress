@@ -50,6 +50,6 @@ describe('Helpers...', () => {
     cy.get('h3').invoke('html', '<h3>Teste Fudencia do nordeste</h3>')
     cy.get('#formNome').invoke('val', 'Texto via invoke')
     cy.window().invoke('alert', 'Fofura do nordeste')
-    cy.get('#resultado').invoke('html', '<input type="button" value="Fofurex Hack" >') // NOTE Alterar HTML da pagina
+    cy.get('#resultado').invoke('html', '<input type="button" value="Fofurex Hack" >') // NOTE - Alterar HTML da pagina
   })
 })
