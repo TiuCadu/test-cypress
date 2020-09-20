@@ -1,4 +1,7 @@
 /// <reference types="cypress"/>
+// NOTE - Como fazer exportação
+import { soma } from './exportar'
+// const exportar = require('./exportar')
 before(() => {
   cy.visit('http://www.wcaquino.me/cypress/componentes.html')
 })
@@ -12,6 +15,7 @@ describe('Work with synchronism', () => {
     cy.get('#novoCampo').should('not.exist')
     cy.get('#buttonDelay').click()
     cy.get('#novoCampo').type('Deu certo')
+    console.log(soma(2, 1))
   })
 
   it('Should doing retry', () => {
@@ -32,7 +36,7 @@ describe('Work with synchronism', () => {
     cy.get('#lista li span').should('contain', 'Item 2')
   })
 
-  it.only('Should vs Then', () => {
+  it('Should vs Then', () => {
     cy.get('#buttonListDOM').click()
     cy.get('#lista li span').then($el => {
       expect($el).to.have.length(1)
