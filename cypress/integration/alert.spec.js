@@ -8,13 +8,14 @@ beforeEach(() => {
   cy.reload()
 })
 describe('Work with alerts', () => {
-  it('Alert', () => {
-    cy.get('#alert').click()
-    cy.on('window:alert', msg => {
-      // NOTE - Validar conteúdo do alert
-      expect(msg).to.be.equal('Alert Simples')
-      console.log(msg)
-    })
+  it.only('Alert', () => {
+    // cy.get('#alert').click()
+    // cy.on('window:alert', msg => {
+    // NOTE - Validar conteúdo do alert
+    //   expect(msg).to.be.equal('Alert Simples')
+    // })
+    // NOTE comando customizado
+    cy.clickAlert('#alert', 'Alert Simples')
   })
 
   it('Alert', () => {
@@ -49,7 +50,7 @@ describe('Work with alerts', () => {
     })
   })
 
-  it.only('Prompt', () => {
+  it('Prompt', () => {
     cy.window().then(win => {
     // NOTE - Preencher Prompt
       cy.stub(win, 'prompt').returns('37')
