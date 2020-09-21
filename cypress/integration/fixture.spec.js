@@ -2,7 +2,7 @@
 
 describe('Fixtures tests...', () => {
   it('Get data from fixture file', function () {
-    // NOTE Usar arquivo de massa externo
+    // NOTE - Usar arquivo de massa externo
     cy.visit('http://www.wcaquino.me/cypress/componentes.html')
     cy.fixture('userData').as('usuario').then(() => {
       cy.get('#formNome').type(this.usuario.nome)

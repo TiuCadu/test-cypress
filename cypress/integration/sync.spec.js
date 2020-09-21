@@ -31,6 +31,7 @@ describe('Work with synchronism', () => {
   it('Timeout use', () => {
     // cy.get('#buttonDelay').click()
     // cy.get('#novoCampo').should('exist')
+    // NOTE - Colocar timeout
     // cy.get('#novoCampo', { timeout: 1000 }).should('exist')
     cy.get('#buttonListDOM').click()
     cy.get('#lista li span').should('contain', 'Item 2')

@@ -10,7 +10,7 @@ beforeEach(() => {
 
 describe('Work with locators...', () => {
   it('Using Jquery selector', () => {
-    // NOTE Selector com *
+    // NOTE - Selector com *
     // Significa que ele irá procurar o onclick que possua o valor francisco
     cy.get('[onclick*="Francisco"]')
     // Busca por irmão seria com o "~" e depois entra no input

@@ -14,7 +14,7 @@ describe('Work with alerts', () => {
     // NOTE - Validar conteúdo do alert
     //   expect(msg).to.be.equal('Alert Simples')
     // })
-    // NOTE comando customizado
+    // NOTE - comando customizado
     cy.clickAlert('#alert', 'Alert Simples')
   })
 
