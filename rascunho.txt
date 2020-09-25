@@ -80,3 +80,8 @@
     ]
 }
 <==== config do vscode =================================>
+
+Linha comando cypress
+cypress run --spec cypress/integration/basic.spec.js --headed --no-exit
+cypress run --spec cypress/integration/basic.spec.js --browser chrome --headless
+cypress run --spec cypress/integration/barriga/**/* --browser chrome

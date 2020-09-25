@@ -1,17 +1,15 @@
 /// <reference types="cypress"/>
 
-let token
-
 describe('Should test an API REST level', () => {
   before(() => {
     cy.getToken('carlos.oliveira@fofurex.com', '123456')
-      .then(tkn => {
-        token = tkn
-      })
+    // .then(tkn => {
+    //   token = tkn
+    // })
   })
 
   beforeEach(() => {
-    cy.resetRest(token)
+    cy.resetRest()
   })
 
   it('Should create an account', () => {
@@ -19,7 +17,7 @@ describe('Should test an API REST level', () => {
       method: 'POST',
       url: '/contas',
       headers: {
-        Authorization: `JWT ${token}`
+        // Authorization: `JWT ${token}`
       },
       body: {
         nome: 'Conta via rest'
@@ -33,13 +31,13 @@ describe('Should test an API REST level', () => {
     })
   })
 
-  it('Should update an account', () => {
-    cy.getContaByName('Conta para alterar', token)
+  it.only('Should update an account', () => {
+    cy.getContaByName('Conta para alterar')
       .then(contaId => {
         cy.request({
           method: 'PUT',
           url: `/contas/${contaId}`,
-          headers: { Authorization: `JWT ${token}` },
+
           body: { nome: 'Conta alterada via rest' }
         }).as('response')
         cy.get('@response').its('status').should('be.equal', 200)
@@ -53,7 +51,7 @@ describe('Should test an API REST level', () => {
     cy.request({
       method: 'POST',
       url: '/contas',
-      headers: { Authorization: `JWT ${token}` },
+      // headers: { Authorization: `JWT ${token}` },
       body: { nome: 'Conta mesmo nome' },
       failOnStatusCode: false
     }).as('response')
@@ -65,12 +63,12 @@ describe('Should test an API REST level', () => {
   })
   it('should create a transaction', () => {
     // NOTE - Alterar data e hora nas requisições moments
-    cy.getContaByName('Conta para movimentacoes', token)
+    cy.getContaByName('Conta para movimentacoes')
       .then(contaId => {
         cy.request({
           method: 'POST',
           url: '/transacoes',
-          headers: { Authorization: `JWT ${token}` },
+          // headers: { Authorization: `JWT ${token}` },
           body: {
             tipo: 'REC',
             data_transacao: Cypress.moment().format('DD/MM/YYYY'),
@@ -86,11 +84,11 @@ describe('Should test an API REST level', () => {
     cy.get('@response').its('status').should('be.equal', 201)
     cy.get('@response').its('body.id').should('exist')
   })
-  it.only('should get balance', () => {
+  it('should get balance', () => {
     cy.request({
       method: 'GET',
-      url: '/saldo',
-      headers: { Authorization: `JWT ${token}` }
+      url: '/saldo'
+      // headers: { Authorization: `JWT ${token}` }
     }).then(res => {
       let saldoConta = null
       res.body.forEach(c => {
@@ -99,31 +97,27 @@ describe('Should test an API REST level', () => {
       expect(saldoConta).to.be.equal('534.00')
     })
 
+    cy.getTransacoes('Movimentacao 1, calculo saldo')
+      .then(res => {
+        cy.request({
+          method: 'PUT',
+          url: `/transacoes/${res.body[0].id}`,
+          // headers: { Authorization: `JWT ${token}` },
+          body: {
+            data_transacao: Cypress.moment(res.body[0].data_transacao).format('DD/MM/YYYY'),
+            data_pagamento: Cypress.moment(res.body[0].data_transacao).add({ days: 1 }).format('DD/MM/YYYY'),
+            descricao: res.body[0].descricao,
+            envolvido: res.body[0].envolvido,
+            valor: res.body[0].valor,
+            conta_id: res.body[0].conta_id,
+            status: true
+          }
+        }).its('status').should('be.equal', 200)
+      })
     cy.request({
       method: 'GET',
-      url: '/transacoes',
-      qs: { descricao: 'Movimentacao 1, calculo saldo' },
-      headers: { Authorization: `JWT ${token}` }
-    }).then(res => {
-      cy.request({
-        method: 'PUT',
-        url: `/transacoes/${res.body[0].id}`,
-        headers: { Authorization: `JWT ${token}` },
-        body: {
-          data_transacao: Cypress.moment(res.body[0].data_transacao).format('DD/MM/YYYY'),
-          data_pagamento: Cypress.moment(res.body[0].data_transacao).add({ days: 1 }).format('DD/MM/YYYY'),
-          descricao: res.body[0].descricao,
-          envolvido: res.body[0].envolvido,
-          valor: res.body[0].valor,
-          conta_id: res.body[0].conta_id,
-          status: true
-        }
-      }).its('status').should('be.equal', 200)
-    })
-    cy.request({
-      method: 'GET',
-      url: '/saldo',
-      headers: { Authorization: `JWT ${token}` }
+      url: '/saldo'
+      // headers: { Authorization: `JWT ${token}` }
     }).then(res => {
       let saldoConta = null
       res.body.forEach(c => {
@@ -134,6 +128,15 @@ describe('Should test an API REST level', () => {
   })
 
   it('Should remove a transaction', () => {
+    cy.getTransacoes('Movimentacao para exclusao')
+      .then(res => {
+        cy.request({
+          method: 'DELETE',
+          url: `/transacoes/${res.body[0].id}`
+          // headers: { Authorization: `JWT ${token}` }
+        }).its('status').should('be.equal', 204)
+      }
 
+      )
   })
 })
